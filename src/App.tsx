@@ -1,4 +1,4 @@
-// сисзй╧сцак JSX сО╥╗╣╚ц╩спж╠╫сй╧сц React ╤тоСё╛©иртрфЁЩуБ╦Ж╣╪хК
+// О©╫О©╫О©╫О©╫й╧О©╫О©╫О©╫О©╫ JSX О©╫О╥╗О©╫О©╫ц╩О©╫О©╫ж╠О©╫О©╫й╧О©╫О©╫ React О©╫О©╫О©╫Сё╛©О©╫О©╫О©╫О©╫фЁО©╫О©╫О©╫О©╫О©╫О©╫О©╫О©╫
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from '@/contexts/AuthContext'
 import { AuthPage } from '@/components/Auth/AuthPage'
@@ -16,7 +16,7 @@ function AppContent() {
       <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-secondary-600 mb-4">??????...</p>
+          <p className="text-secondary-600 mb-4">Е┼═Х╫╫Д╦╜...</p>
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
               <p className="text-red-600 text-sm mb-2">{error}</p>
@@ -24,12 +24,12 @@ function AppContent() {
                 onClick={retry}
                 className="bg-red-600 text-white px-4 py-2 rounded-md text-sm hover:bg-red-700 transition-colors"
               >
-                ????
+                И┤█Х╞∙
               </button>
             </div>
           )}
           <div className="text-xs text-secondary-400 mt-4">
-            ???????????????????????????
+            Е╕┌Ф·°И∙©Ф≈╤И≈╢Ф≈═Е⌠█Е╨■О╪▄Х╞╥Фё─Ф÷╔Г╫▒Г╩°Х©·Ф▌╔
           </div>
         </div>
       </div>
