@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { useAuth } from '@/contexts/AuthContext'
 import { supabase } from '@/lib/supabase'
-import { Building2, Users, FileText, Loader2 } from 'lucide-react'
+import { Building2, Users, FileText, Loader2, X } from 'lucide-react'
 
 interface CreateOrganizationFormProps {
-  onSuccess?: (organizationId: string) => void
-  onCancel?: () => void
+  onClose: () => void
+  onSuccess: () => void
 }
 
-export function CreateOrganizationForm({ onSuccess, onCancel }: CreateOrganizationFormProps) {
+export function CreateOrganizationForm({ onClose, onSuccess }: CreateOrganizationFormProps) {
   const { user } = useAuth()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
@@ -25,7 +25,7 @@ export function CreateOrganizationForm({ onSuccess, onCancel }: CreateOrganizati
     setError('')
 
     try {
-      // ´´½¨×éÖ¯
+      // åˆ›å»ºç»„ç»‡
       const { data: organization, error: orgError } = await supabase
         .from('organizations')
         .insert({
@@ -37,7 +37,7 @@ export function CreateOrganizationForm({ onSuccess, onCancel }: CreateOrganizati
 
       if (orgError) throw orgError
 
-      // ¸üĞÂÓÃ»§µÄ×éÖ¯IDºÍ½ÇÉ«
+      // æ›´æ–°ç”¨æˆ·çš„ç»„ç»‡IDå’Œè§’è‰²
       const { error: userError } = await supabase
         .from('users')
         .update({
@@ -48,26 +48,33 @@ export function CreateOrganizationForm({ onSuccess, onCancel }: CreateOrganizati
 
       if (userError) throw userError
 
-      onSuccess?.(organization.id)
+      onSuccess()
     } catch (err: any) {
-      setError(err.message || '´´½¨×éÖ¯Ê§°Ü')
+      setError(err.message || 'åˆ›å»ºç»„ç»‡å¤±è´¥')
     } finally {
       setLoading(false)
     }
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6 max-w-md mx-auto">
-      <div className="text-center mb-6">
-        <div className="mx-auto w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center mb-4">
-          <Building2 className="h-6 w-6 text-primary-600" />
+    <div className="bg-white rounded-xl p-6">
+      {/* å¤´éƒ¨ */}
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center">
+          <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center mr-3">
+            <Building2 className="h-5 w-5 text-blue-600" />
+          </div>
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900">åˆ›å»ºç»„ç»‡</h2>
+            <p className="text-sm text-gray-600">å»ºç«‹æ‚¨çš„å›¢é˜Ÿï¼Œå¼€å§‹åä½œé¡¹ç›®</p>
+          </div>
         </div>
-        <h2 className="text-2xl font-bold text-secondary-900 mb-2">
-          ´´½¨×éÖ¯
-        </h2>
-        <p className="text-secondary-600">
-          ½¨Á¢ÄúµÄÍÅ¶Ó£¬¿ªÊ¼Ğ­×÷ÏîÄ¿
-        </p>
+        <button
+          onClick={onClose}
+          className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+        >
+          <X className="h-5 w-5" />
+        </button>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -78,16 +85,16 @@ export function CreateOrganizationForm({ onSuccess, onCancel }: CreateOrganizati
         )}
 
         <div>
-          <label className="block text-sm font-medium text-secondary-700 mb-2">
-            ×éÖ¯Ãû³Æ *
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            ç»„ç»‡åç§° *
           </label>
           <div className="relative">
-            <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-secondary-400" />
+            <Building2 className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
             <input
               type="text"
               required
-              className="input pl-10"
-              placeholder="ÇëÊäÈë×éÖ¯Ãû³Æ"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="è¯·è¾“å…¥ç»„ç»‡åç§°"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
@@ -95,14 +102,14 @@ export function CreateOrganizationForm({ onSuccess, onCancel }: CreateOrganizati
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-secondary-700 mb-2">
-            ×éÖ¯ÃèÊö
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            ç»„ç»‡æè¿°
           </label>
           <div className="relative">
-            <FileText className="absolute left-3 top-3 h-5 w-5 text-secondary-400" />
+            <FileText className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
             <textarea
-              className="input pl-10 min-h-[80px] resize-none"
-              placeholder="¼òÒªÃèÊöÄúµÄ×éÖ¯£¨¿ÉÑ¡£©"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 min-h-[80px] resize-none"
+              placeholder="ç®€è¦æè¿°æ‚¨çš„ç»„ç»‡ï¼ˆå¯é€‰ï¼‰"
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
             />
@@ -110,29 +117,27 @@ export function CreateOrganizationForm({ onSuccess, onCancel }: CreateOrganizati
         </div>
 
         <div className="flex gap-3 pt-4">
-          {onCancel && (
-            <button
-              type="button"
-              onClick={onCancel}
-              className="flex-1 px-4 py-2 border border-secondary-300 text-secondary-700 rounded-lg hover:bg-secondary-50 transition-colors"
-            >
-              È¡Ïû
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            å–æ¶ˆ
+          </button>
           <button
             type="submit"
             disabled={loading || !formData.name.trim()}
-            className="flex-1 btn-primary flex items-center justify-center gap-2"
+            className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
           >
             {loading ? (
               <>
                 <Loader2 className="h-4 w-4 animate-spin" />
-                ´´½¨ÖĞ...
+                åˆ›å»ºä¸­...
               </>
             ) : (
               <>
                 <Users className="h-4 w-4" />
-                ´´½¨×éÖ¯
+                åˆ›å»ºç»„ç»‡
               </>
             )}
           </button>

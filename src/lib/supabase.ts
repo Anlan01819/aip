@@ -11,7 +11,7 @@ console.log('Key前6位:', supabaseAnonKey.substring(0, 6) + '...')
 export const supabase = createClient(supabaseUrl, supabaseAnonKey)
 
 // 测试连接
-supabase.auth.getSession().then(({ data, error }) => {
+supabase.auth.getSession().then(({ error }) => {
   if (error) {
     console.error('❌ Supabase连接测试失败:', error)
   } else {

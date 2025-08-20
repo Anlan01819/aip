@@ -33,8 +33,11 @@ export function CreateProjectModal({ isOpen, onClose, onConfirm, loading = false
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-xl font-semibold text-secondary-900">创建新项目</h2>
           <button
+            type="button"
             onClick={handleClose}
             className="p-2 hover:bg-secondary-100 rounded-lg transition-colors"
+            title="关闭"
+            aria-label="关闭"
           >
             <X className="h-4 w-4" />
           </button>

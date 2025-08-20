@@ -21,7 +21,7 @@ export function TaskList({ tasks }: TaskListProps) {
       case 'low':
         return 'text-green-600 bg-green-50'
       default:
-        return 'text-secondary-600 bg-secondary-50'
+        return 'text-gray-600 bg-gray-50'
     }
   }
 
@@ -47,7 +47,7 @@ export function TaskList({ tasks }: TaskListProps) {
       case 'in_progress':
         return '进行中'
       case 'review':
-        return '待审查'
+        return '待检查'
       case 'completed':
         return '已完成'
       case 'blocked':
@@ -59,32 +59,32 @@ export function TaskList({ tasks }: TaskListProps) {
 
   if (tasks.length === 0) {
     return (
-      <div className="card">
-        <h2 className="text-xl font-semibold text-secondary-900 mb-4">我的任务</h2>
+      <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">我的任务</h2>
         <div className="text-center py-12">
-          <CheckCircle className="h-12 w-12 text-secondary-400 mx-auto mb-4" />
-          <p className="text-secondary-600">暂无待处理任务</p>
-          <p className="text-sm text-secondary-500 mt-2">太棒了！您已经完成了所有任务</p>
+          <CheckCircle className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+          <p className="text-gray-600">暂无待处理任务</p>
+          <p className="text-sm text-gray-500 mt-2">太棒了！您已经完成了所有任务</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="card">
+    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-semibold text-secondary-900">我的任务</h2>
-        <span className="text-sm text-secondary-500">{tasks.length} 个任务</span>
+        <h2 className="text-xl font-semibold text-gray-900">我的任务</h2>
+        <span className="text-sm text-gray-500">{tasks.length} 个任务</span>
       </div>
       
       <div className="space-y-3">
         {tasks.map((task) => (
           <div
             key={task.id}
-            className="border border-secondary-200 rounded-lg p-4 hover:border-primary-300 hover:shadow-sm transition-all"
+            className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 hover:shadow-sm transition-all"
           >
             <div className="flex items-start justify-between mb-2">
-              <h3 className="font-medium text-secondary-900 line-clamp-2">
+              <h3 className="font-medium text-gray-900 line-clamp-2">
                 {task.title}
               </h3>
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${getPriorityColor(task.priority)}`}>
@@ -93,12 +93,12 @@ export function TaskList({ tasks }: TaskListProps) {
             </div>
             
             {task.description && (
-              <p className="text-sm text-secondary-600 mb-3 line-clamp-2">
+              <p className="text-sm text-gray-600 mb-3 line-clamp-2">
                 {task.description}
               </p>
             )}
             
-            <div className="flex items-center justify-between text-xs text-secondary-500">
+            <div className="flex items-center justify-between text-xs text-gray-500">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-1">
                   <Clock className="h-3 w-3" />
@@ -111,7 +111,7 @@ export function TaskList({ tasks }: TaskListProps) {
                   </div>
                 )}
               </div>
-              <span className="text-xs font-medium text-secondary-700">
+              <span className="text-xs font-medium text-gray-700">
                 {getStatusText(task.status)}
               </span>
             </div>

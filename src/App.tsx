@@ -1,7 +1,11 @@
-import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
+// ÓÉÓÚÊ¹ÓÃÁË JSX Óï·¨µ«Ã»ÓĞÖ±½ÓÊ¹ÓÃ React ¶ÔÏó£¬¿ÉÒÔÒÆ³ıÕâ¸öµ¼Èë
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAuth } from '@/contexts/AuthContext'
 import { AuthPage } from '@/components/Auth/AuthPage'
+import { MainLayout } from '@/components/Layout/MainLayout'
+import { OrganizationList } from '@/components/Organization/OrganizationList'
+import { OrganizationExplore } from '@/components/Organization/OrganizationExplore'
+import { ProjectList } from '@/components/Project/ProjectList'
 import { Dashboard } from '@/components/Dashboard/Dashboard'
 
 function AppContent() {
@@ -12,7 +16,7 @@ function AppContent() {
       <div className="min-h-screen bg-secondary-50 flex items-center justify-center">
         <div className="text-center max-w-md mx-auto p-6">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-          <p className="text-secondary-600 mb-4">åŠ è½½ä¸­...</p>
+          <p className="text-secondary-600 mb-4">??????...</p>
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4">
               <p className="text-red-600 text-sm mb-2">{error}</p>
@@ -20,12 +24,12 @@ function AppContent() {
                 onClick={retry}
                 className="bg-red-600 text-white px-4 py-2 rounded-md text-sm hover:bg-red-700 transition-colors"
               >
-                é‡è¯•
+                ????
               </button>
             </div>
           )}
           <div className="text-xs text-secondary-400 mt-4">
-            å¦‚æœé•¿æ—¶é—´æ— å“åº”ï¼Œè¯·æ£€æŸ¥ç½‘ç»œè¿æ¥
+            ???????????????????????????
           </div>
         </div>
       </div>
@@ -34,7 +38,19 @@ function AppContent() {
 
   return (
     <Router>
-      {session ? <Dashboard /> : <AuthPage />}
+      {session ? (
+        <MainLayout>
+          <Routes>
+            <Route path="/" element={<Navigate to="/organizations" replace />} />
+            <Route path="/organizations" element={<OrganizationList />} />
+            <Route path="/organizations/explore" element={<OrganizationExplore />} />
+            <Route path="/projects/:orgId" element={<ProjectList />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Routes>
+        </MainLayout>
+      ) : (
+        <AuthPage />
+      )}
     </Router>
   )
 }
@@ -47,4 +63,4 @@ function App() {
   )
 }
 
-export default App 
+export default App

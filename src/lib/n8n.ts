@@ -12,7 +12,7 @@ export interface N8nChatResponse {
 
 // n8n webhook配置
 const N8N_WEBHOOK_URL = import.meta.env.DEV 
-  ? '/api/n8n/webhook/1afe3c51-e81d-477b-b3e6-0686bc772534'  // 开发环境使用代理
+  ? '/api/n8n/webhook/1afe3c51-e81d-477b-b3e6-0686bc772534'  // 开发环境使用代�?
   : 'https://n8n.aifunbox.com/webhook/1afe3c51-e81d-477b-b3e6-0686bc772534'  // 生产环境直接调用
 
 // 用户项目接口
@@ -49,7 +49,7 @@ export const callN8nRAGAgent = async (
     const { data: { user } } = await supabase.auth.getUser()
     
     if (!user) {
-      throw new Error('用户未登录')
+      throw new Error('用户未登�?')
     }
 
     console.log('🚀 调用n8n RAG Agent:', {
@@ -76,7 +76,7 @@ export const callN8nRAGAgent = async (
 
     const result = await response.text()
     
-    console.log('✅ n8n响应成功:', result)
+    console.log('�? n8n响应成功:', result)
 
     // 尝试解析JSON响应，提取ai_content字段
     let cleanResponse = result
@@ -99,7 +99,7 @@ export const callN8nRAGAgent = async (
     }
 
   } catch (error) {
-    console.error('❌ n8n调用失败:', error)
+    console.error('�? n8n调用失败:', error)
     return {
       success: false,
       error: error instanceof Error ? error.message : '未知错误'
@@ -107,7 +107,7 @@ export const callN8nRAGAgent = async (
   }
 }
 
-// 本地测试函数（使用localhost）
+// 本地测试函数（使用localhost�?
 export const callN8nRAGAgentLocal = async (
   chatInput: string,
   projectId: string | string[]
@@ -122,7 +122,7 @@ export const callN8nRAGAgentLocal = async (
     const { data: { user } } = await supabase.auth.getUser()
     
     if (!user) {
-      throw new Error('用户未登录')
+      throw new Error('用户未登�?')
     }
 
     console.log('🚀 调用本地n8n RAG Agent:', {
@@ -150,7 +150,7 @@ export const callN8nRAGAgentLocal = async (
 
     const result = await response.text()
     
-    console.log('✅ 本地n8n响应成功:', result)
+    console.log('�? 本地n8n响应成功:', result)
 
     // 尝试解析JSON响应，提取ai_content字段
     let cleanResponse = result
@@ -173,7 +173,7 @@ export const callN8nRAGAgentLocal = async (
     }
 
   } catch (error) {
-    console.error('❌ 本地n8n调用失败:', error)
+    console.error('�? 本地n8n调用失败:', error)
     return {
       success: false,
       error: error instanceof Error ? error.message : '本地n8n连接失败'
@@ -192,7 +192,7 @@ export const getUserProjects = async (): Promise<UserProject[]> => {
 
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
-      throw new Error('用户未登录')
+      throw new Error('用户未登�?')
     }
 
     const { data: projects, error } = await supabase
@@ -221,7 +221,7 @@ export const uploadDocumentToN8n = async (
 ): Promise<N8nChatResponse> => {
   try {
     console.log('📁 上传文件到n8n:', { fileName: file.name, projectId, userId, title })
-    console.log('📁 文件对象检查:', { 
+    console.log('📁 文件对象检�?:', { 
       fileType: typeof file, 
       fileName: file.name, 
       fileSize: file.size, 
@@ -236,13 +236,13 @@ export const uploadDocumentToN8n = async (
     formData.append('title', title)
 
     // 验证FormData内容
-    console.log('📁 FormData检查:')
+    console.log('📁 FormData检�?:')
     for (let [key, value] of formData.entries()) {
       console.log(`  ${key}:`, value instanceof File ? `File(${value.name}, ${value.size}bytes)` : value)
     }
 
     const uploadUrl = import.meta.env.DEV 
-      ? '/api/n8n/webhook/upload-document'  // 开发环境使用代理
+      ? '/api/n8n/webhook/upload-document'  // 开发环境使用代�?
       : 'https://n8n.aifunbox.com/webhook/upload-document'  // 生产环境直接调用
 
     const response = await fetch(uploadUrl, {
@@ -254,9 +254,9 @@ export const uploadDocumentToN8n = async (
     const result = await response.text()
     console.log('📄 n8n响应:', { status: response.status, statusText: response.statusText, result })
 
-    // n8n可能返回500但实际处理成功，所以我们检查响应内容
+    // n8n可能返回500但实际处理成功，所以我们检查响应内�?
     if (response.ok || (response.status === 500 && result)) {
-      console.log('✅ 文件上传成功:', result)
+      console.log('�? 文件上传成功:', result)
       return {
         success: true,
         response: result
@@ -266,7 +266,7 @@ export const uploadDocumentToN8n = async (
     }
 
   } catch (error) {
-    console.error('❌ 文件上传失败:', error)
+    console.error('�? 文件上传失败:', error)
     return {
       success: false,
       error: error instanceof Error ? error.message : '文件上传失败'
@@ -292,7 +292,7 @@ export const saveChatRecord = async (
 
     const projectIdStr = Array.isArray(projectId) ? projectId[0] : projectId
 
-    // 保存一条完整的对话记录（用户消息和AI回复在同一条记录中）
+    // 保存一条完整的对话记录（用户消息和AI回复在同一条记录中�?
     const { error } = await supabase
       .from('chat_history')
       .insert({
@@ -308,7 +308,7 @@ export const saveChatRecord = async (
     if (error) {
       console.error('保存聊天记录失败:', error)
     } else {
-      console.log('✅ 聊天记录保存成功')
+      console.log('�? 聊天记录保存成功')
     }
   } catch (error) {
     console.error('保存聊天记录异常:', error)
@@ -328,10 +328,10 @@ export const getChatRecords = async (limit = 20): Promise<ChatRecord[]> => {
     console.log('👤 获取用户信息...')
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
-      console.log('❌ 用户未登录')
+      console.log('�? 用户未登�?')
       return []
     }
-    console.log('✅ 用户ID:', user.id)
+    console.log('�? 用户ID:', user.id)
 
     console.log('📝 查询聊天记录...')
     const { data, error } = await supabase
@@ -343,14 +343,14 @@ export const getChatRecords = async (limit = 20): Promise<ChatRecord[]> => {
       .limit(limit)
 
     if (error) {
-      console.error('❌ 获取聊天记录失败:', error)
+      console.error('�? 获取聊天记录失败:', error)
       return []
     }
 
-    console.log('✅ 查询成功，记录数:', data?.length || 0)
+    console.log('�? 查询成功，记录数:', data?.length || 0)
     return data || []
   } catch (error) {
-    console.error('❌ 获取聊天记录异常:', error)
+    console.error('�? 获取聊天记录异常:', error)
     return []
   }
 }

@@ -34,11 +34,11 @@ export function Sidebar({ user, onSignOut }: SidebarProps) {
               <p className="font-medium text-secondary-900">{user?.name}</p>
               <div className="flex items-center gap-1">
                 <span className="text-xs text-secondary-500">{user?.email}</span>
-                                 {user?.is_ai_assist_enabled && (
-                   <span title="AI辅助已开启">
-                     <Zap className="h-3 w-3 text-primary-500" />
-                   </span>
-                 )}
+                {user?.is_ai_assist_enabled && (
+                  <span title="AI辅助已开启">
+                    <Zap className="h-3 w-3 text-primary-500" />
+                  </span>
+                )}
               </div>
             </div>
           </div>

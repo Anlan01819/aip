@@ -60,7 +60,7 @@ export function FileUpload({ projectId, userId, onUploadSuccess, onClose }: File
         id: `${Date.now()}-${Math.random()}`,
         status: error ? 'error' : 'pending',
         progress: 0,
-        error,
+        error: error || undefined,
         title: file.name  // 默认使用文件名作为标题
       })
     })
